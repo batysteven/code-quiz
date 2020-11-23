@@ -87,7 +87,7 @@ function resetState() {
     while (answerButtonsElement.firstChild) {
         answerButtonsElement.removeChild(answerButtonsElement.firstChild)
     }
-}
+};
 
 function selectAnswer(e) {
     const selectedButton = e.target;
@@ -96,7 +96,11 @@ function selectAnswer(e) {
     Array.from(answerButtonsElement.children).forEach(button => {
         setStatusClass(button, button.dataset.correct)
     })
-    nextButton.classList.remove('hide');
+    if (randomQuestions.length > answeredQuestionIndex + 1) {
+        nextButton.classList.remove('hide');
+    } else {
+        endGame();
+    }
 };
 
 function setStatusClass(element, correct) {
@@ -106,13 +110,13 @@ function setStatusClass(element, correct) {
     } else {
         element.classList.add('wrong');
     }
-}
+};
 
 function clearStatusClass(element) {
     element.classList.remove('correct');
     element.classList.remove('wrong');
 
-}
+};
 
 startButton.addEventListener('click', startGame);
 nextButton.addEventListener('click', () => {
