@@ -70,6 +70,12 @@ body.wrong {
     padding: 10px 20px
 }
 
+.next-btn {
+    font-size: 5rem;
+    font-weight: bold;
+    padding: 10px 20px
+}
+
 .controls {
     display: flex;
     justify-content: center;
