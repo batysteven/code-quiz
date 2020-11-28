@@ -4,7 +4,9 @@ const questionElement = document.getElementById('question');
 const answerButtonsElement = document.getElementById('answer-buttons');
 var timeLeft = 60;
 var timer;
+var points = 0;
 
+//Timer starting from 60 seconds counting down for quiz
 function checkTime() {
     document.getElementById('quiz-time-left').innerHTML = timeLeft;
      if (timeLeft <= 0) {
@@ -14,58 +16,60 @@ function checkTime() {
         timer = setTimeout(checkTime, 1000);
      }
 };
-timer = setTimeout(checkTime, 1000);
 
+//question and answers array
 let randomQuestions, answeredQuestionIndex;
 const questions = [
     {
         question: 'This is a question a',
         answers: [
-            { text: 'not answer', correct: false},
+            { text: 'not answer', wrong: false},
             { text: 'is answer', correct: true},
-            { text: 'not answer', correct: false},
-            { text: 'not answer', correct: false} 
+            { text: 'not answer', wrong: false},
+            { text: 'not answer', wrong: false} 
         ]
     },
     {
         question: 'This is a question b',
         answers: [
             { text: 'is answer', correct: true},
-            { text: 'not answer', correct: false},
-            { text: 'not answer', correct: false},
-            { text: 'not answer', correct: false} 
+            { text: 'not answer', wrong: false},
+            { text: 'not answer', wrong: false},
+            { text: 'not answer', wrong: false} 
         ]
     },
     {
         question: 'This is a question c',
         answers: [
-            { text: 'not answer', correct: false},
-            { text: 'not answer', correct: false},
-            { text: 'not answer', correct: false},
+            { text: 'not answer', wrong: false},
+            { text: 'not answer', wrong: false},
+            { text: 'not answer', wrong: false},
             { text: 'is answer', correct: true},
         ]
     },
     {
         question: 'This is a question d',
         answers: [
-            { text: 'not answer', correct: false},
-            { text: 'not answer', correct: false},
+            { text: 'not answer', wrong: false},
+            { text: 'not answer', wrong: false},
             { text: 'is answer', correct: true},
-            { text: 'not answer', correct: false} 
+            { text: 'not answer', wrong: false} 
         ]
     },
     {
         question: 'This is a question e',
         answers: [
             { text: 'is answer', correct: true},
-            { text: 'not answer', correct: false},
-            { text: 'not answer', correct: false},
-            { text: 'not answer', correct: false} 
+            { text: 'not answer', wrong: false},
+            { text: 'not answer', wrong: false},
+            { text: 'not answer', wrong: false} 
         ]
     }
 ];
 
 function startGame() {
+    //start timer for quiz
+    timer = setTimeout(checkTime, 1000);
     startButton.classList.add('hide');
     randomQuestions = questions.sort(() => Math.random() - .5);
     answeredQuestionIndex = 0;
@@ -101,7 +105,13 @@ function resetState() {
 function selectAnswer(e) {
     const selectedButton = e.target;
     const correct = selectedButton.dataset.correct;
+    //changes background color if correct or wrong
     setStatusClass(document.body, correct);
+    //track points when correct add 10
+    if (correct) {
+        points = points + 10;
+        document.getElementById('points').innerHTML = points;
+    }    
     Array.from(answerButtonsElement.children).forEach(button => {
         setStatusClass(button, button.dataset.correct)
     })
@@ -111,8 +121,8 @@ function selectAnswer(e) {
 };
 
 function setStatusClass(element, correct) {
-    clearStatusClass(element)
-    if (correct){
+    clearStatusClass(element);
+    if (correct) {
         element.classList.add('correct');
     } else {
         element.classList.add('wrong');
@@ -132,12 +142,18 @@ answerButtonsElement.addEventListener('click', () => {
 
 function endGame() {
     clearStatusClass(document.body);
-    var endQuiz = document.createElement('div');
-    endQuiz.textContent = "Your Quiz is now completed!";
-    document.getElementById('endQuiz').innerText = endQuiz.textContent;
-    endQuiz;
+    var endQuizText = document.querySelector("#endQuiz");
+    endQuizText.className = "grid-container";
+    endQuizText.textContent = "Your Quiz is now completed!";
+    document.getElementById('endQuiz').innerText = endQuizText.textContent;
+    var score = points + (60 - timer);
+    showScore = document.createElement('div');
+    showScore.className = "grid-item";
+    showScore.textContent = "Your quiz score is " + score;
+    endQuizText.appendChild(showScore);
     clearInterval(timer);
+    
 };
 
-    
+//start quiz on click start button
 startButton.addEventListener('click', startGame);

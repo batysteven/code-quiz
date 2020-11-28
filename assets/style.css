@@ -40,6 +40,9 @@ body.wrong {
 .quiz-timer {
     text-align: right;
 }
+.point-tracker {
+    text-align: right;
+}
 
 .btn-grid {
     display: grid;
