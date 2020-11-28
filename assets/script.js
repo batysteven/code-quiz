@@ -136,6 +136,7 @@ function endGame() {
     endQuiz.textContent = "Your Quiz is now completed!";
     document.getElementById('endQuiz').innerText = endQuiz.textContent;
     endQuiz;
+    clearInterval(timer);
 };
 
     

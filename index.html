@@ -9,19 +9,20 @@
     <title>Code Quiz!</title>
 </head>
 <body>
-    <div id="quiz-time-left"></div>
-    <div class="container" id="endQuiz">
-        <div id="question-container" class="hide">
-            <div id="question">Question</div>
-            <div id="answer-buttons" class="btn-grid">
-                <button class="btn">Answer 1</button>
-                <button class="btn">Answer 2</button>
-                <button class="btn">Answer 3</button>
-                <button class="btn">Answer 4</button>
-            </div>
+    <div class="grid-container" id="endQuiz">
+        <div class="quiz-timer grid-item" id="quiz-time-left">
         </div>
+            <div id="question-container" class="hide grid-item">
+                <div id="question">Question</div>
+                <div id="answer-buttons" class="btn-grid">
+                    <button class="btn">Answer 1</button>
+                    <button class="btn">Answer 2</button>
+                    <button class="btn">Answer 3</button>
+                    <button class="btn">Answer 4</button>
+                </div>
+            </div>
         <div class="controls">
-            <button id="start-btn" class="start-btn btn">Start</button>
+            <button id="start-btn" class="start-btn btn grid-item">Start</button>
         </div>
     </div>
 </body>
