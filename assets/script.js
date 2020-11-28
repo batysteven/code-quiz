@@ -1,5 +1,4 @@
 const startButton = document.getElementById('start-btn');
-const nextButton = document.getElementById('next-btn');
 const questionContainerElement = document.getElementById('question-container');
 const questionElement = document.getElementById('question');
 const answerButtonsElement = document.getElementById('answer-buttons');
@@ -82,10 +81,9 @@ function showQuestion(question) {
 };
 
 function resetState() {
-    clearStatusClass(document.body);
-    nextButton.classList.add('hide');
+    // clearStatusClass(document.body);
     while (answerButtonsElement.firstChild) {
-        answerButtonsElement.removeChild(answerButtonsElement.firstChild)
+    answerButtonsElement.removeChild(answerButtonsElement.firstChild)
     }
 };
 
@@ -96,9 +94,7 @@ function selectAnswer(e) {
     Array.from(answerButtonsElement.children).forEach(button => {
         setStatusClass(button, button.dataset.correct)
     })
-    if (randomQuestions.length > answeredQuestionIndex + 1) {
-        nextButton.classList.remove('hide');
-    } else {
+    if (answeredQuestionIndex === randomQuestions.length - 1) {
         endGame();
     }
 };
@@ -118,8 +114,14 @@ function clearStatusClass(element) {
 
 };
 
-startButton.addEventListener('click', startGame);
-nextButton.addEventListener('click', () => {
+answerButtonsElement.addEventListener('click', () => {
     answeredQuestionIndex++
     setNextQuestion();
 });
+
+function endGame() {
+    clearStatusClass(document.body);
+    createElement.innerText("Your Quiz is now completed!");
+}
+
+startButton.addEventListener('click', startGame);
