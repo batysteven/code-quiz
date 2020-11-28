@@ -2,6 +2,19 @@ const startButton = document.getElementById('start-btn');
 const questionContainerElement = document.getElementById('question-container');
 const questionElement = document.getElementById('question');
 const answerButtonsElement = document.getElementById('answer-buttons');
+var timeLeft = 60;
+var timer;
+
+function checkTime() {
+    document.getElementById('quiz-time-left').innerHTML = timeLeft;
+     if (timeLeft <= 0) {
+         endGame();
+     } else {
+         timeLeft--;
+        timer = setTimeout(checkTime, 1000);
+     }
+};
+timer = setTimeout(checkTime, 1000);
 
 let randomQuestions, answeredQuestionIndex;
 const questions = [
@@ -77,11 +90,9 @@ function showQuestion(question) {
         button.addEventListener('click', selectAnswer);
         answerButtonsElement.appendChild(button);
     })
-    //startTimer
 };
 
 function resetState() {
-    // clearStatusClass(document.body);
     while (answerButtonsElement.firstChild) {
     answerButtonsElement.removeChild(answerButtonsElement.firstChild)
     }
@@ -125,6 +136,7 @@ function endGame() {
     endQuiz.textContent = "Your Quiz is now completed!";
     document.getElementById('endQuiz').innerText = endQuiz.textContent;
     endQuiz;
-}
+};
 
+    
 startButton.addEventListener('click', startGame);
