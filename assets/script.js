@@ -121,7 +121,10 @@ answerButtonsElement.addEventListener('click', () => {
 
 function endGame() {
     clearStatusClass(document.body);
-    createElement.innerText("Your Quiz is now completed!");
+    var endQuiz = document.createElement('div');
+    endQuiz.textContent = "Your Quiz is now completed!";
+    document.getElementById('endQuiz').innerText = endQuiz.textContent;
+    endQuiz;
 }
 
 startButton.addEventListener('click', startGame);
